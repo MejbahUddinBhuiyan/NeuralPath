@@ -49,3 +49,8 @@ Route::middleware('guest')
         ->middleware('throttle:5,1')
         ->name('invitations.complete');
     });
+Route::middleware(['auth', 'learner'])
+    ->get('/dashboard', function () {
+        return view('learner.dashboard');
+    })
+    ->name('learner.dashboard');

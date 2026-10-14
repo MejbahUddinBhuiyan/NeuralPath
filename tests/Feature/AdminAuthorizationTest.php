@@ -43,9 +43,11 @@ test('inactive admins cannot access admin routes', function () {
         'email_verified_at' => now(),
     ]);
 
-    $this->actingAs($admin)
-        ->get('/admin-check')
-        ->assertForbidden();
+   $this->actingAs($admin)
+    ->get('/admin-check')
+    ->assertRedirect(route('login'));
+
+$this->assertGuest();
 });
 
 test('unverified admins cannot access admin routes', function () {
@@ -55,7 +57,9 @@ test('unverified admins cannot access admin routes', function () {
         'email_verified_at' => null,
     ]);
 
-    $this->actingAs($admin)
-        ->get('/admin-check')
-        ->assertForbidden();
+$this->actingAs($admin)
+    ->get('/admin-check')
+    ->assertRedirect(route('login'));
+
+$this->assertGuest();
 });

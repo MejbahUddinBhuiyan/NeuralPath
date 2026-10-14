@@ -41,9 +41,11 @@ test('inactive learners cannot access dashboard', function () {
         'email_verified_at' => now(),
     ]);
 
-    $this->actingAs($learner)
-        ->get('/dashboard')
-        ->assertForbidden();
+$this->actingAs($learner)
+    ->get('/dashboard')
+    ->assertRedirect(route('login'));
+
+$this->assertGuest();
 });
 
 test('unverified learners cannot access dashboard', function () {
@@ -53,7 +55,9 @@ test('unverified learners cannot access dashboard', function () {
         'email_verified_at' => null,
     ]);
 
-    $this->actingAs($learner)
-        ->get('/dashboard')
-        ->assertForbidden();
+$this->actingAs($learner)
+    ->get('/dashboard')
+    ->assertRedirect(route('login'));
+
+$this->assertGuest();
 });

@@ -25,32 +25,32 @@ class RoadmapController extends Controller
         ]);
     }
 
-    public function show(RoadmapBranch $branch): View
-    {
-        abort_unless($branch->is_published, 404);
+    
+public function show(RoadmapBranch $branch): View
+{
+    abort_unless($branch->is_published, 404);
 
-        
-$branch->load([
-    'sections' => function ($query) {
-        $query->where('is_published', true)
-            ->orderBy('sort_order')
-            ->orderBy('id');
-    },
-    'sections.topics' => function ($query) {
-        $query->where('is_published', true)
-            ->orderBy('sort_order')
-            ->orderBy('id');
-    },
-    'sections.topics.resources' => function ($query) {
-        $query->where('is_published', true)
-            ->orderBy('sort_order')
-            ->orderBy('id');
-    },
-]);
+    $branch->load([
+        'sections' => function ($query) {
+            $query->where('is_published', true)
+                ->orderBy('sort_order')
+                ->orderBy('id');
+        },
+        'sections.topics' => function ($query) {
+            $query->where('is_published', true)
+                ->orderBy('sort_order')
+                ->orderBy('id');
+        },
+        'sections.topics.resources' => function ($query) {
+            $query->where('is_published', true)
+                ->orderBy('sort_order')
+                ->orderBy('id');
+        },
+    ]);
 
+    return view('learner.roadmap.show', [
+        'branch' => $branch,
+    ]);
+}
 
-        return view('learner.roadmap.show', [
-            'branch' => $branch,
-        ]);
-    }
 }

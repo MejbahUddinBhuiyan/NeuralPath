@@ -11,21 +11,29 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
-        * { box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+        }
 
         body.np {
             margin: 0;
+            min-height: 100vh;
             background: #080e1e !important;
             color: #ffffff !important;
-            min-height: 100vh;
             font-family: Inter, ui-sans-serif, system-ui, sans-serif;
             line-height: 1.6;
         }
 
-        .np a { text-decoration: none; }
+        .np h1, .np h2, .np h3 {
+            color: #ffffff !important;
+        }
+
+        .np a {
+            text-decoration: none;
+        }
 
         .shell {
-            width: min(1050px, calc(100% - 40px));
+            width: min(1050px, calc(100% - 32px));
             margin: auto;
             padding: 40px 0 70px;
         }
@@ -36,7 +44,7 @@
             justify-content: space-between;
             flex-wrap: wrap;
             gap: 20px;
-            margin-bottom: 42px;
+            margin-bottom: 40px;
         }
 
         .brand {
@@ -48,76 +56,74 @@
         .back {
             display: inline-flex;
             align-items: center;
-            padding: 11px 17px;
+            padding: 11px 18px;
             background: #172239;
+            color: #ffffff !important;
             border: 1px solid #475569;
             border-radius: 10px;
-            color: #ffffff !important;
+            font-weight: 700;
             font-size: 13px;
-            font-weight: 750;
             transition: .2s;
         }
 
         .back:hover {
             background: #25344e;
             border-color: #22d3ee;
+            transform: translateY(-2px);
         }
 
         .eyebrow {
             color: #67e8f9 !important;
-            text-transform: uppercase;
             font-size: 12px;
-            letter-spacing: 1.2px;
             font-weight: 800;
-        }
-
-        h1, h2, h3 {
-            color: #ffffff !important;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         h1 {
+            margin: 12px 0;
             font-size: clamp(27px, 4vw, 38px);
-            letter-spacing: -.8px;
             line-height: 1.3;
-            margin: 10px 0 15px;
         }
 
         .description {
+            max-width: 800px;
             color: #cbd5e1 !important;
             font-size: 14px;
             line-height: 1.8;
-            max-width: 800px;
         }
 
         .summary {
             display: flex;
             flex-wrap: wrap;
             gap: 12px;
-            margin-top: 24px;
+            margin: 25px 0 40px;
         }
 
-        .summary span {
+        .summary-item {
+            display: inline-flex;
+            align-items: center;
             padding: 9px 14px;
-            background: #1c2b43;
             border: 1px solid #334763;
             border-radius: 9px;
-            color: #e2e8f0 !important;
+            background: #1c2b43;
+            color: #ffffff !important;
             font-size: 12px;
             font-weight: 700;
         }
 
-        .content-head {
-            margin: 45px 0 20px;
+        .section-title {
+            margin: 0 0 20px;
             font-size: 22px;
             font-weight: 800;
         }
 
         .sections {
             display: grid;
-            gap: 18px;
+            gap: 20px;
         }
 
-        .section {
+        .section-card {
             padding: 25px;
             background: #131e33;
             border: 1px solid #30415b;
@@ -125,66 +131,160 @@
             transition: border-color .2s, transform .2s;
         }
 
-        .section:hover {
+        .section-card:hover {
             border-color: #0891b2;
             transform: translateY(-2px);
         }
 
-        .section h3 {
-            margin: 0 0 10px;
-            font-size: 19px;
+        .section-name {
+            margin: 0 0 8px;
+            font-size: 20px;
+            font-weight: 800;
         }
 
-        .section p {
-            margin: 0 0 16px;
+        .section-description {
+            margin: 0 0 20px;
             color: #cbd5e1 !important;
             font-size: 13px;
+            line-height: 1.8;
         }
 
         .topics {
             display: grid;
-            gap: 10px;
-            margin-top: 18px;
+            gap: 12px;
+            margin-top: 20px;
         }
 
         .topic {
             display: flex;
             align-items: flex-start;
-            gap: 12px;
-            padding: 13px 15px;
+            gap: 13px;
+            padding: 17px;
             background: #1d2a40;
             border: 1px solid #334763;
-            border-radius: 10px;
+            border-radius: 12px;
         }
 
         .topic-indicator {
             display: inline-block;
-            width: 17px;
-            height: 17px;
             flex-shrink: 0;
+            width: 18px;
+            height: 18px;
             margin-top: 3px;
             border: 2px solid #94a3b8;
             border-radius: 5px;
         }
 
+        .topic-body {
+            flex: 1;
+            min-width: 0;
+        }
+
         .topic-name {
             color: #ffffff !important;
-            font-weight: 700;
-            font-size: 13px;
+            font-size: 14px;
+            font-weight: 800;
         }
 
         .topic-meta {
+            margin-top: 5px;
             color: #cbd5e1 !important;
             font-size: 12px;
-            margin-top: 3px;
+        }
+
+        .topic-description {
+            margin: 10px 0 0;
+            color: #cbd5e1 !important;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .resources {
+            display: grid;
+            gap: 10px;
+            margin-top: 18px;
+            padding-top: 17px;
+            border-top: 1px solid #334763;
+        }
+
+        .resources-heading {
+            color: #cbd5e1 !important;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .resource-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 13px 14px;
+            background: #131e33;
+            border: 1px solid #405574;
+            border-radius: 10px;
+            color: #ffffff !important;
+            transition: background .2s,
+                        border-color .2s,
+                        transform .2s;
+        }
+
+        .resource-link:hover {
+            background: #1e3650;
+            border-color: #22d3ee;
+            transform: translateY(-2px);
+        }
+
+        .resource-icon {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+            width: 36px;
+            height: 36px;
+            background: #103548;
+            border-radius: 9px;
+            color: #67e8f9 !important;
+            font-size: 17px;
+            font-weight: 800;
+        }
+
+        .resource-info {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            min-width: 0;
+            gap: 3px;
+        }
+
+        .resource-title {
+            color: #ffffff !important;
+            font-size: 13px;
+            font-weight: 750;
+            overflow-wrap: anywhere;
+        }
+
+        .resource-type {
+            color: #a5f3fc !important;
+            font-size: 11px;
+            text-transform: capitalize;
+        }
+
+        .resource-arrow {
+            color: #67e8f9 !important;
+            font-size: 18px;
+        }
+
+        .resource-link:focus-visible,
+        .back:focus-visible {
+            outline: 3px solid #67e8f9;
+            outline-offset: 3px;
         }
 
         .empty {
-            text-align: center;
-            padding: 60px 24px;
+            padding: 50px 24px;
             background: #131e33;
             border: 1px dashed #475569;
             border-radius: 16px;
+            text-align: center;
         }
 
         .empty h3 {
@@ -193,6 +293,7 @@
         }
 
         .empty p {
+            margin: 0;
             color: #cbd5e1 !important;
             font-size: 14px;
         }
@@ -202,17 +303,28 @@
             padding-top: 22px;
             border-top: 1px solid #263349;
             color: #94a3b8 !important;
-            font-size: 12px;
             text-align: center;
+            font-size: 12px;
         }
 
         @media (max-width: 600px) {
-            .shell { width: calc(100% - 28px); }
-            .section { padding: 20px; }
+            .section-card {
+                padding: 20px;
+            }
+
+            .topic {
+                padding: 13px;
+            }
+
+            .resource-link {
+                padding: 12px;
+            }
         }
 
         @media (prefers-reduced-motion: reduce) {
-            .np * { transition: none !important; }
+            .np * {
+                transition: none !important;
+            }
         }
     </style>
 </head>
@@ -222,7 +334,9 @@
 <main class="shell">
 
     <header class="header">
-        <div class="brand">◈ NeuralPath</div>
+        <div class="brand">
+            ◈ NeuralPath
+        </div>
 
         <a href="{{ route('learner.roadmap.index') }}"
            class="back">
@@ -230,7 +344,8 @@
         </a>
     </header>
 
-    <section>
+    <section aria-label="Learning phase overview">
+
         <div class="eyebrow">
             Phase {{ $branch->phase_number }}
             · Weeks {{ $branch->start_week }}–{{ $branch->end_week }}
@@ -238,12 +353,14 @@
 
         <h1>{{ $branch->title }}</h1>
 
-        <p class="description">
-            {{ $branch->description }}
-        </p>
+        @if($branch->description)
+            <p class="description">
+                {{ $branch->description }}
+            </p>
+        @endif
 
         <div class="summary">
-            <span>
+            <span class="summary-item">
                 {{ $branch->sections->count() }}
                 {{ \Illuminate\Support\Str::plural(
                     'Sub-branch',
@@ -251,30 +368,39 @@
                 ) }}
             </span>
 
-            <span>
+            <span class="summary-item">
                 {{ $branch->sections->sum(
                     fn ($section) => $section->topics->count()
                 ) }}
                 Published Topics
             </span>
 
-            <span>Learning Phase</span>
+            <span class="summary-item">
+                Learning Phase
+            </span>
         </div>
+
     </section>
 
-    <h2 class="content-head">
+    <h2 class="section-title">
         Learning Modules
     </h2>
 
-    <section class="sections">
+    <section class="sections"
+             aria-label="Published learning modules">
 
         @forelse($branch->sections as $section)
 
-            <article class="section">
-                <h3>{{ $section->title }}</h3>
+            <article class="section-card">
+
+                <h3 class="section-name">
+                    {{ $section->title }}
+                </h3>
 
                 @if($section->description)
-                    <p>{{ $section->description }}</p>
+                    <p class="section-description">
+                        {{ $section->description }}
+                    </p>
                 @endif
 
                 <div class="topics">
@@ -282,68 +408,14 @@
                     @forelse($section->topics as $topic)
 
                         <div class="topic">
-                            
-@if($topic->resources->isNotEmpty())
-    <div style="
-        margin-top:14px;
-        display:flex;
-        flex-direction:column;
-        gap:9px;
-    ">
-        <div style="
-            color:#cbd5e1;
-            font-size:12px;
-            font-weight:700;
-        ">
-            Learning Resources
-        </div>
 
-        @foreach($topic->resources as $resource)
-            <a href="{{ $resource->url }}"
-               target="_blank"
-               rel="noopener noreferrer"
-               style="
-                   display:flex;
-                   align-items:center;
-                   gap:10px;
-                   padding:11px 13px;
-                   border:1px solid #334763;
-                   border-radius:9px;
-                   background:#131e33;
-                   color:#ffffff;
-                   text-decoration:none;
-               ">
-                <span style="color:#67e8f9;font-size:16px;">
-                    {{ $resource->type === 'youtube' ? '▶' : '↗' }}
-                </span>
-
-                <span>
-                    <span style="
-                        display:block;
-                        color:#ffffff;
-                        font-size:13px;
-                        font-weight:700;
-                    ">
-                        {{ $resource->title }}
-                    </span>
-
-                    <span style="
-                        color:#cbd5e1;
-                        font-size:11px;
-                        text-transform:capitalize;
-                    ">
-                        {{ $resource->type }}
-                    </span>
-                </span>
-            </a>
-        @endforeach
-    </div>
-@endif
-
+                            <!-- Visual placeholder.
+                                 Private completion tracking comes next. -->
                             <span class="topic-indicator"
                                   aria-hidden="true"></span>
 
-                            <div>
+                            <div class="topic-body">
+
                                 <div class="topic-name">
                                     {{ $topic->title }}
                                 </div>
@@ -354,31 +426,91 @@
                                     @endif
 
                                     @if($topic->estimated_minutes)
-                                        · {{ $topic->estimated_minutes }} min
+                                        @if($topic->target_week)
+                                            ·
+                                        @endif
+
+                                        {{ $topic->estimated_minutes }} min
                                     @endif
                                 </div>
 
                                 @if($topic->description)
-                                    <p style="margin-top:7px;margin-bottom:0">
+                                    <p class="topic-description">
                                         {{ $topic->description }}
                                     </p>
                                 @endif
+
+                                @if($topic->resources->isNotEmpty())
+
+                                    <div class="resources">
+
+                                        <div class="resources-heading">
+                                            Learning Resources
+                                        </div>
+
+                                        @foreach($topic->resources as $resource)
+
+                                            <a
+                                                class="resource-link"
+                                                href="{{ $resource->url }}"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+
+                                                <span
+                                                    class="resource-icon"
+                                                    aria-hidden="true"
+                                                >
+                                                    {{ $resource->type === 'youtube' ? '▶' : '↗' }}
+                                                </span>
+
+                                                <span class="resource-info">
+
+                                                    <span class="resource-title">
+                                                        {{ $resource->title }}
+                                                    </span>
+
+                                                    <span class="resource-type">
+                                                        {{ $resource->type }}
+                                                    </span>
+
+                                                </span>
+
+                                                <span class="resource-arrow"
+                                                      aria-hidden="true">
+                                                    ↗
+                                                </span>
+
+                                            </a>
+
+                                        @endforeach
+
+                                    </div>
+
+                                @endif
+
                             </div>
+
                         </div>
 
                     @empty
-                        <p>
+
+                        <p class="section-description">
                             Topics for this module are being prepared.
                         </p>
+
                     @endforelse
 
                 </div>
+
             </article>
 
         @empty
 
             <div class="empty">
-                <h3>Learning modules are coming soon</h3>
+                <h3>
+                    Learning modules are coming soon
+                </h3>
 
                 <p>
                     This learning phase has been published,
@@ -394,6 +526,8 @@
     <footer class="footer">
         NeuralPath · Agentic AI Engineering Learning Platform
     </footer>
+
 </main>
+
 </body>
 </html>

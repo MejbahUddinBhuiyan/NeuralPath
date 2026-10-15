@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\InvitationController;
 use App\Http\Controllers\Admin\RoadmapController;
 use App\Http\Controllers\Learner\RoadmapController as LearnerRoadmapController;
 use App\Http\Controllers\Admin\RoadmapSectionController;
+use App\Http\Controllers\Admin\TopicResourceController;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -143,4 +144,29 @@ Route::middleware(['auth', 'admin'])
             '/sections/{section}/topics/{topic}/publication',
             [RoadmapSectionController::class, 'toggleTopic']
         )->name('topics.publication');
+    });
+
+Route::middleware(['auth', 'admin'])
+    ->prefix('admin/roadmap/{branch}/sections/{section}/topics/{topic}/resources')
+    ->name('admin.roadmap.resources.')
+    ->group(function () {
+        Route::get('/', [
+            TopicResourceController::class,
+            'index',
+        ])->name('index');
+
+        Route::post('/', [
+            TopicResourceController::class,
+            'store',
+        ])->name('store');
+
+        Route::put('/{resource}', [
+            TopicResourceController::class,
+            'update',
+        ])->name('update');
+
+        Route::patch('/{resource}/publication', [
+            TopicResourceController::class,
+            'togglePublication',
+        ])->name('publication');
     });

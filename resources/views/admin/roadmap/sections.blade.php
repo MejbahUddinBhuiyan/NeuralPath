@@ -155,6 +155,20 @@
                                     <button type="submit" class="btn {{ $topic->is_published ? 'unpublish' : 'publish' }}">
                                         {{ $topic->is_published ? 'Unpublish' : 'Publish' }}
                                     </button>
+                                    
+<a href="{{ route('admin.roadmap.resources.index', [
+        $branch, $section, $topic
+    ]) }}"
+   class="btn"
+   style="
+       background:#103548;
+       color:#ffffff;
+       border:1px solid #22d3ee;
+       text-decoration:none;
+   ">
+    Resources
+</a>
+
                                 </form>
                             </div>
                         </div>

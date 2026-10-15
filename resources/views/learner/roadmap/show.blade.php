@@ -282,6 +282,64 @@
                     @forelse($section->topics as $topic)
 
                         <div class="topic">
+                            
+@if($topic->resources->isNotEmpty())
+    <div style="
+        margin-top:14px;
+        display:flex;
+        flex-direction:column;
+        gap:9px;
+    ">
+        <div style="
+            color:#cbd5e1;
+            font-size:12px;
+            font-weight:700;
+        ">
+            Learning Resources
+        </div>
+
+        @foreach($topic->resources as $resource)
+            <a href="{{ $resource->url }}"
+               target="_blank"
+               rel="noopener noreferrer"
+               style="
+                   display:flex;
+                   align-items:center;
+                   gap:10px;
+                   padding:11px 13px;
+                   border:1px solid #334763;
+                   border-radius:9px;
+                   background:#131e33;
+                   color:#ffffff;
+                   text-decoration:none;
+               ">
+                <span style="color:#67e8f9;font-size:16px;">
+                    {{ $resource->type === 'youtube' ? '▶' : '↗' }}
+                </span>
+
+                <span>
+                    <span style="
+                        display:block;
+                        color:#ffffff;
+                        font-size:13px;
+                        font-weight:700;
+                    ">
+                        {{ $resource->title }}
+                    </span>
+
+                    <span style="
+                        color:#cbd5e1;
+                        font-size:11px;
+                        text-transform:capitalize;
+                    ">
+                        {{ $resource->type }}
+                    </span>
+                </span>
+            </a>
+        @endforeach
+    </div>
+@endif
+
                             <span class="topic-indicator"
                                   aria-hidden="true"></span>
 

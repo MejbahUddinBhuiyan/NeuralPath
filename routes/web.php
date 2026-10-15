@@ -3,7 +3,8 @@
 use App\Http\Controllers\Auth\AcceptInvitationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\InvitationController;
-
+use App\Http\Controllers\Admin\RoadmapController;
+use App\Http\Controllers\Learner\RoadmapController as LearnerRoadmapController;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -54,3 +55,30 @@ Route::middleware(['auth', 'learner'])
         return view('learner.dashboard');
     })
     ->name('learner.dashboard');
+Route::middleware(['auth', 'admin'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+        Route::get('/roadmap', [RoadmapController::class, 'index'])
+            ->name('roadmap.index');
+
+        Route::patch(
+            '/roadmap/{branch}/publication',
+            [RoadmapController::class, 'togglePublication']
+        )->name('roadmap.publication');
+    });    
+
+Route::middleware(['auth', 'learner'])
+    ->prefix('roadmap')
+    ->name('learner.roadmap.')
+    ->group(function () {
+        Route::get('/', [
+            LearnerRoadmapController::class,
+            'index',
+        ])->name('index');
+
+        Route::get('/{branch}', [
+            LearnerRoadmapController::class,
+            'show',
+        ])->name('show');
+    });    

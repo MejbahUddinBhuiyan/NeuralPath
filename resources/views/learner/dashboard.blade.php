@@ -113,8 +113,30 @@
                     Not Started
                 </span>
             </div>
+            
+<a href="{{ route('learner.roadmap.index') }}"
+   style="
+       display:inline-flex;
+       align-items:center;
+       gap:10px;
+       margin-top:22px;
+       padding:12px 20px;
+       background:#0891b2;
+       color:#ffffff;
+       border:1px solid #22d3ee;
+       border-radius:10px;
+       font-weight:700;
+       text-decoration:none;
+       transition:background .2s, transform .2s;
+   "
+   onmouseover="this.style.background='#06b6d4';this.style.transform='translateY(-2px)'"
+   onmouseout="this.style.background='#0891b2';this.style.transform='translateY(0)'">
+    Explore Learning Roadmap →
+</a>
+
 
         </section>
+
 
     </main>
 

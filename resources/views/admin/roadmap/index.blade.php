@@ -431,12 +431,46 @@
             transform: translateY(-2px);
         }
 
+        /* Manage modules: available for every roadmap phase */
+
+        .np-manage {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            min-height: 44px;
+            padding: 10px 13px;
+            border: 1px solid #67e8f9;
+            border-radius: 10px;
+            background: #103548;
+            color: #ffffff !important;
+            font-size: 13px;
+            font-weight: 750;
+            text-decoration: none !important;
+            text-align: center;
+            transition: background .2s, transform .2s,
+                        border-color .2s, box-shadow .2s;
+        }
+
+        .np-manage:hover {
+            background: #15546b;
+            border-color: #a5f3fc;
+            box-shadow: 0 5px 20px #06b6d433;
+            transform: translateY(-2px);
+        }
+
+        .np-manage:active {
+            transform: scale(.97);
+        }
+
         .np-action:active {
             transform: scale(.97);
         }
 
         .np-action:focus-visible,
-        .np-back:focus-visible {
+        .np-back:focus-visible,
+        .np-manage:focus-visible {
             outline: 3px solid #67e8f9;
             outline-offset: 3px;
         }
@@ -489,6 +523,13 @@
             .np-controls form {
                 flex: 1;
             }
+            .np-controls {
+                flex-wrap: wrap;
+            }
+
+            .np-manage {
+                flex: 1 0 100%;
+            }
         }
 
         @media (max-width: 600px) {
@@ -522,6 +563,10 @@
 
             .np-branch-title {
                 font-size: 17px;
+            }
+            .np-status,
+            .np-controls form {
+                flex: 1 0 100%;
             }
         }
 
@@ -817,6 +862,23 @@
                         </form>
 
                     @endif
+
+                    <!-- Navigate to this phase's sections and topics -->
+                    <a class="np-manage"
+                       href="{{ route('admin.roadmap.sections', $branch) }}"
+                       aria-label="Manage modules for {{ $branch->title }}">
+                        <svg width="17" height="17"
+                             viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2"
+                             stroke-linecap="round" stroke-linejoin="round"
+                             aria-hidden="true">
+                            <rect x="3" y="3" width="7" height="7" rx="1"/>
+                            <rect x="14" y="3" width="7" height="7" rx="1"/>
+                            <rect x="3" y="14" width="7" height="7" rx="1"/>
+                            <rect x="14" y="14" width="7" height="7" rx="1"/>
+                        </svg>
+                        Manage Modules
+                    </a>
 
                 </div>
 

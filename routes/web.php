@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\InvitationController;
 use App\Http\Controllers\Admin\RoadmapController;
 use App\Http\Controllers\Learner\RoadmapController as LearnerRoadmapController;
+use App\Http\Controllers\Admin\RoadmapSectionController;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -82,3 +83,22 @@ Route::middleware(['auth', 'learner'])
             'show',
         ])->name('show');
     });    
+Route::middleware(['auth', 'admin'])
+    ->prefix('admin/roadmap/{branch}')
+    ->name('admin.roadmap.')
+    ->group(function () {
+        Route::get(
+            '/sections',
+            [RoadmapSectionController::class, 'index']
+        )->name('sections');
+
+        Route::patch(
+            '/sections/{section}/publication',
+            [RoadmapSectionController::class, 'toggleSection']
+        )->name('sections.publication');
+
+        Route::patch(
+            '/sections/{section}/topics/{topic}/publication',
+            [RoadmapSectionController::class, 'toggleTopic']
+        )->name('topics.publication');
+    });

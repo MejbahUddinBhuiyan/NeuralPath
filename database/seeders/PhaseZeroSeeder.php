@@ -73,7 +73,7 @@ class PhaseZeroSeeder extends Seeder
         ];
 
         foreach ($sections as $sectionIndex => $sectionData) {
-            $section = $branch->sections()->updateOrCreate(
+           $section = $branch->sections()->firstOrCreate(
                 [
                     'slug' => Str::slug($sectionData['title']),
                 ],
@@ -87,7 +87,7 @@ class PhaseZeroSeeder extends Seeder
             foreach ($sectionData['topics'] as $topicIndex => $topicData) {
                 [$title, $week, $minutes] = $topicData;
 
-                $section->topics()->updateOrCreate(
+                $section->topics()->firstOrCreate(
                     [
                         'slug' => Str::slug($title),
                     ],

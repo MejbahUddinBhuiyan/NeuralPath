@@ -83,19 +83,61 @@ Route::middleware(['auth', 'learner'])
             'show',
         ])->name('show');
     });    
+
 Route::middleware(['auth', 'admin'])
     ->prefix('admin/roadmap/{branch}')
     ->name('admin.roadmap.')
     ->group(function () {
+
         Route::get(
             '/sections',
             [RoadmapSectionController::class, 'index']
         )->name('sections');
 
+        Route::get(
+            '/sections/create',
+            [RoadmapSectionController::class, 'createSection']
+        )->name('sections.create');
+
+        Route::post(
+            '/sections',
+            [RoadmapSectionController::class, 'storeSection']
+        )->name('sections.store');
+
+        Route::get(
+            '/sections/{section}/edit',
+            [RoadmapSectionController::class, 'editSection']
+        )->name('sections.edit');
+
+        Route::put(
+            '/sections/{section}',
+            [RoadmapSectionController::class, 'updateSection']
+        )->name('sections.update');
+
         Route::patch(
             '/sections/{section}/publication',
             [RoadmapSectionController::class, 'toggleSection']
         )->name('sections.publication');
+
+        Route::get(
+            '/sections/{section}/topics/create',
+            [RoadmapSectionController::class, 'createTopic']
+        )->name('topics.create');
+
+        Route::post(
+            '/sections/{section}/topics',
+            [RoadmapSectionController::class, 'storeTopic']
+        )->name('topics.store');
+
+        Route::get(
+            '/sections/{section}/topics/{topic}/edit',
+            [RoadmapSectionController::class, 'editTopic']
+        )->name('topics.edit');
+
+        Route::put(
+            '/sections/{section}/topics/{topic}',
+            [RoadmapSectionController::class, 'updateTopic']
+        )->name('topics.update');
 
         Route::patch(
             '/sections/{section}/topics/{topic}/publication',

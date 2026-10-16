@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\RoadmapController;
 use App\Http\Controllers\Learner\RoadmapController as LearnerRoadmapController;
 use App\Http\Controllers\Admin\RoadmapSectionController;
 use App\Http\Controllers\Admin\TopicResourceController;
+use App\Http\Controllers\Learner\TopicCompletionController;
+use App\Http\Controllers\Learner\DashboardController;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -52,11 +54,14 @@ Route::middleware('guest')
         ->middleware('throttle:5,1')
         ->name('invitations.complete');
     });
+
 Route::middleware(['auth', 'learner'])
-    ->get('/dashboard', function () {
-        return view('learner.dashboard');
-    })
+    ->get('/dashboard', [
+        DashboardController::class,
+        'index',
+    ])
     ->name('learner.dashboard');
+
 Route::middleware(['auth', 'admin'])
     ->prefix('admin')
     ->name('admin.')
@@ -169,4 +174,18 @@ Route::middleware(['auth', 'admin'])
             TopicResourceController::class,
             'togglePublication',
         ])->name('publication');
+    });
+Route::middleware(['auth', 'learner'])
+    ->prefix('roadmap/topics')
+    ->name('learner.topics.')
+    ->group(function () {
+        Route::put(
+            '/{topic}/completion',
+            [TopicCompletionController::class, 'complete']
+        )->name('complete');
+
+        Route::delete(
+            '/{topic}/completion',
+            [TopicCompletionController::class, 'incomplete']
+        )->name('incomplete');
     });

@@ -9,6 +9,8 @@ use App\Http\Controllers\Admin\RoadmapSectionController;
 use App\Http\Controllers\Admin\TopicResourceController;
 use App\Http\Controllers\Learner\TopicCompletionController;
 use App\Http\Controllers\Learner\DashboardController;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\LearnerController;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -19,9 +21,10 @@ Route::middleware(['auth', 'admin'])
     });
 
 Route::middleware(['auth', 'admin'])
-    ->get('/admin/dashboard', function () {
-        return view('admin.dashboard');
-    })
+    ->get(
+        '/admin/dashboard',
+        [AdminDashboardController::class, 'index']
+    )
     ->name('admin.dashboard');
 
 Route::middleware(['auth', 'admin'])
@@ -188,4 +191,30 @@ Route::middleware(['auth', 'learner'])
             '/{topic}/completion',
             [TopicCompletionController::class, 'incomplete']
         )->name('incomplete');
+    });
+
+Route::middleware(['auth', 'admin'])
+    ->prefix('admin/learners')
+    ->name('admin.learners.')
+    ->group(function () {
+
+        Route::get('/', [
+            LearnerController::class,
+            'index',
+        ])->name('index');
+
+        Route::get('/{learner}', [
+            LearnerController::class,
+            'show',
+        ])
+        ->whereNumber('learner')
+        ->name('show');
+
+        Route::patch('/{learner}/status', [
+            LearnerController::class,
+            'updateStatus',
+        ])
+        ->whereNumber('learner')
+        ->middleware('throttle:20,1')
+        ->name('status');
     });

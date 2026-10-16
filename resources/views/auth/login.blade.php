@@ -3,97 +3,261 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark">
 
-    <title>Login | NeuralPath</title>
+    <title>Sign In | NeuralPath</title>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: #080e1e;
+            color: #ffffff;
+            font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        }
+
+        .page {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 450px;
+            padding: 35px;
+            background: #131e33;
+            border: 1px solid #30415b;
+            border-radius: 18px;
+        }
+
+        .brand {
+            color: #67e8f9;
+            font-size: 29px;
+            font-weight: 850;
+            text-align: center;
+        }
+
+        .tagline {
+            margin: 10px 0 28px;
+            color: #cbd5e1;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0 0 22px;
+            font-size: 22px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .field {
+            margin-bottom: 20px;
+        }
+
+        .input {
+            width: 100%;
+            padding: 13px;
+            background: #1d2a40;
+            border: 1px solid #475569;
+            border-radius: 9px;
+            color: #ffffff;
+            font: inherit;
+        }
+
+        .input:focus {
+            outline: 2px solid #22d3ee;
+        }
+
+        .options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 7px 0 22px;
+            font-size: 12px;
+        }
+
+        .remember {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #cbd5e1;
+        }
+
+        .forgot,
+        .links a {
+            color: #67e8f9;
+            text-decoration: none;
+        }
+
+        .submit {
+            width: 100%;
+            padding: 13px;
+            background: #0891b2;
+            border: 1px solid #22d3ee;
+            border-radius: 9px;
+            color: #ffffff;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .submit:hover {
+            background: #0e7490;
+        }
+
+        .notice {
+            margin-bottom: 20px;
+            padding: 13px;
+            background: #103a32;
+            border: 1px solid #059669;
+            border-radius: 9px;
+            color: #a7f3d0;
+            font-size: 13px;
+        }
+
+        .error {
+            margin-bottom: 15px;
+            color: #fda4af;
+            font-size: 13px;
+        }
+
+        .footer-text {
+            margin-top: 23px;
+            color: #cbd5e1;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 18px;
+            margin-top: 23px;
+            font-size: 12px;
+        }
+
+        a:focus-visible,
+        button:focus-visible {
+            outline: 3px solid #67e8f9;
+            outline-offset: 3px;
+        }
+    </style>
 </head>
 
-<body class="min-h-screen bg-slate-950 text-white">
+<body>
+<main class="page">
 
-    <main class="flex min-h-screen items-center justify-center p-6">
+    <section class="card" aria-label="NeuralPath sign in">
 
-        <div class="w-full max-w-md rounded-2xl border
-                    border-slate-800 bg-slate-900 p-8 shadow-2xl">
+        <div class="brand">◈ NeuralPath</div>
 
-            <div class="mb-8 text-center">
-                <h1 class="text-3xl font-bold text-cyan-400">
-                    NeuralPath
-                </h1>
+        <p class="tagline">
+            Your Agentic AI Engineering Workspace
+        </p>
 
-                <p class="mt-2 text-sm text-slate-400">
-                    Your AI Engineering Workspace
-                </p>
+        <h1>Sign In</h1>
+
+        @if(session('status'))
+            <div class="notice" role="status">
+                {{ session('status') }}
+            </div>
+        @endif
+
+        @if($errors->any())
+            <div class="error" role="alert">
+                {{ $errors->first() }}
+            </div>
+        @endif
+
+        <form method="POST" action="{{ route('login.store') }}">
+            @csrf
+
+            <div class="field">
+                <label for="email">
+                    Email Address
+                </label>
+
+                <input
+                    class="input"
+                    id="email"
+                    type="email"
+                    name="email"
+                    value="{{ old('email') }}"
+                    autocomplete="username"
+                    required
+                    autofocus
+                >
             </div>
 
-            @if ($errors->any())
-                <div class="mb-5 rounded-lg bg-red-500/10 p-3 text-sm text-red-300">
-                    {{ $errors->first() }}
-                </div>
-            @endif
-            @if (session('status'))
-                <div class="mb-5 rounded-lg border border-emerald-800
-                        bg-emerald-950 p-3 text-sm text-emerald-300">
-                        {{ session('status') }}
-                </div>
-            @endif
-            <form method="POST" action="{{ route('login.store') }}"
-                  class="space-y-5">
+            <div class="field">
+                <label for="password">
+                    Password
+                </label>
 
-                @csrf
+                <input
+                    class="input"
+                    id="password"
+                    type="password"
+                    name="password"
+                    autocomplete="current-password"
+                    required
+                >
+            </div>
 
-                <div>
-                    <label for="email" class="mb-2 block text-sm">
-                        Email Address
-                    </label>
-
-                    <input type="email"
-                           name="email"
-                           id="email"
-                           value="{{ old('email') }}"
-                           required
-                           autocomplete="username"
-                           class="w-full rounded-lg border border-slate-700
-                                  bg-slate-800 px-4 py-3 outline-none
-                                  focus:border-cyan-400">
-                </div>
-
-                <div>
-                    <label for="password" class="mb-2 block text-sm">
-                        Password
-                    </label>
-
-                    <input type="password"
-                           name="password"
-                           id="password"
-                           required
-                           autocomplete="current-password"
-                           class="w-full rounded-lg border border-slate-700
-                                  bg-slate-800 px-4 py-3 outline-none
-                                  focus:border-cyan-400">
-                </div>
-
-                <label class="flex items-center gap-2 text-sm text-slate-300">
-                    <input type="checkbox" name="remember" value="1">
+            <div class="options">
+                <label class="remember" for="remember">
+                    <input
+                        id="remember"
+                        type="checkbox"
+                        name="remember"
+                        value="1"
+                    >
                     Remember me
                 </label>
 
-                <button type="submit"
-                        class="w-full rounded-lg bg-cyan-400
-                               px-4 py-3 font-semibold text-slate-950
-                               hover:bg-cyan-300">
-                    Sign In
-                </button>
-            </form>
+                <a
+                    class="forgot"
+                    href="{{ route('password.request') }}"
+                >
+                    Forgot Password?
+                </a>
+            </div>
 
-            <p class="mt-6 text-center text-sm text-slate-400">
-                Access is restricted to approved members.
-            </p>
+            <button type="submit" class="submit">
+                Sign In →
+            </button>
+        </form>
+
+        <p class="footer-text">
+            Access is restricted to approved, invited members.
+        </p>
+
+        <div class="links">
+            <a href="{{ url('/') }}">← Back to Home</a>
+
+            <a href="mailto:mejbahu475@gmail.com?subject=NeuralPath%20Access%20Request">
+                Request Access
+            </a>
         </div>
 
-    </main>
+    </section>
 
+</main>
 </body>
 </html>

@@ -7,6 +7,8 @@ use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
 use App\Actions\Fortify\UpdateUserProfileInformation;
 use App\Models\User;
+use App\Http\Responses\RoleBasedLoginResponse;
+use Laravel\Fortify\Contracts\LoginResponse;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -21,10 +23,13 @@ class FortifyServiceProvider extends ServiceProvider
     /**
      * Register application services.
      */
-    public function register(): void
-    {
-        //
-    }
+public function register(): void
+{
+    $this->app->singleton(
+        LoginResponse::class,
+        RoleBasedLoginResponse::class
+    );
+}
 
     /**
      * Bootstrap Fortify authentication.

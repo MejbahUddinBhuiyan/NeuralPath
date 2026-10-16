@@ -161,20 +161,24 @@ return [
     |
     */
 
-    'features' => [
-       // Features::registration(),
-        Features::resetPasswords(),
-        // Features::emailVerification(),
-        Features::updateProfileInformation(),
-        Features::updatePasswords(),
-        Features::twoFactorAuthentication([
-            'confirm' => true,
-            'confirmPassword' => true,
-            // 'window' => 0,
-        ]),
-        Features::passkeys([
-            'confirmPassword' => true,
-        ]),
-    ],
+
+'features' => [
+    // NeuralPath registration is invitation-only.
+    // Features::registration(),
+
+    // Password recovery remains enabled.
+    Features::resetPasswords(),
+
+    // Existing custom account verification remains in place.
+    // Features::emailVerification(),
+
+    Features::updateProfileInformation(),
+    Features::updatePasswords(),
+
+    // NeuralPath does not use 2FA or passkeys.
+    // Features::twoFactorAuthentication(),
+    // Features::passkeys(),
+],
+
 
 ];

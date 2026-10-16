@@ -45,4 +45,11 @@ class RoadmapTopic extends Model
             'roadmap_section_id'
         );
     }
+    public function progressRecords(): HasMany
+{
+    return $this->hasMany(
+        TopicProgress::class,
+        'roadmap_topic_id'
+    );
+}
 }

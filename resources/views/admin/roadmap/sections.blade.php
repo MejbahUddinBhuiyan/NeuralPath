@@ -411,10 +411,18 @@
     <div class="toolbar">
         <h2>Learning Modules</h2>
 
+        <div class="section-actions">
+            <a href="{{ route('admin.projects.index', $branch) }}"
+               class="btn resources"
+               aria-label="Manage recommended projects for Phase {{ $branch->phase_number }}">
+                ★ Manage Projects
+            </a>
+
         <a href="{{ route('admin.roadmap.sections.create', $branch) }}"
            class="btn publish">
             + Add Sub-branch
-        </a>
+            </a>
+        </div>
     </div>
 
     <section class="section-list"

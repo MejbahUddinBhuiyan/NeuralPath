@@ -197,28 +197,36 @@
             height: 7px;
         }
 
-<section
-    style="margin:26px 0;padding:23px;background:#131e33;border:1px solid #30415b;border-radius:14px;"
-    aria-label="Recommended phase projects"
->
-    <h2 style="margin:0 0 8px;color:#ffffff;font-size:20px;">
-        Recommended Projects
-    </h2>
-
-    <p style="color:#cbd5e1;font-size:13px;line-height:1.8;">
-        Put your learning into practice with
-        recommended projects for this phase.
-        Projects do not affect topic completion percentages.
-    </p>
-
-    <a
-        href="{{ route('learner.projects.index', $branch) }}"
-        style="display:inline-block;padding:11px 16px;background:#0891b2;border:1px solid #22d3ee;border-radius:9px;color:#ffffff;text-decoration:none;font-size:13px;font-weight:800;"
-    >
-        Explore Recommended Projects →
-    </a>
-</section>
-
+        /* Phase project navigation */
+        .project-promo {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 18px;
+            margin: 22px 0 34px;
+            padding: 23px;
+            background: #131e33;
+            border: 1px solid #22d3ee;
+            border-radius: 14px;
+        }
+        .project-promo h2 { margin: 8px 0; font-size: 20px; }
+        .project-promo p { margin: 0; color: #cbd5e1; font-size: 13px; line-height: 1.8; }
+        .project-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            padding: 12px 18px;
+            border: 1px solid #22d3ee;
+            border-radius: 9px;
+            background: #0891b2;
+            color: #ffffff !important;
+            font-weight: 800;
+            font-size: 13px;
+        }
+        .project-cta:hover { background: #0e7490; }
+        .project-cta:focus-visible { outline: 3px solid #67e8f9; outline-offset: 3px; }
 
         /* Learning modules */
 
@@ -646,6 +654,19 @@
                 </span>
             @endif
         </div>
+    </section>
+
+    <!-- Phase projects: separate from topic progress -->
+    <section class="project-promo" aria-label="Recommended phase projects">
+        <div>
+            <div class="eyebrow">APPLY WHAT YOU LEARN</div>
+            <h2>Recommended Projects</h2>
+            <p>Explore five practical project recommendations for Phase {{ $branch->phase_number }}.
+               Projects do not change your topic completion percentage.</p>
+        </div>
+        <a class="project-cta" href="{{ route('learner.projects.index', $branch) }}">
+            Explore Projects →
+        </a>
     </section>
 
     <!-- Published modules -->

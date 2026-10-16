@@ -9,36 +9,31 @@ use Symfony\Component\HttpFoundation\Response;
 
 class EnsureActiveAccount
 {
-    public function handle(
-        Request $request,
-        Closure $next
-    ): Response {
-        $user = $request->user();
+public function handle(
+    \Illuminate\Http\Request $request,
+    \Closure $next
+): \Symfony\Component\HttpFoundation\Response {
+    $user = $request->user();
 
-        if (! $user) {
-            return $next($request);
-        }
+    if (
+        $user &&
+        (
+            ! $user->isActive() ||
+            ! $user->hasVerifiedEmail()
+        )
+    ) {
+        \Illuminate\Support\Facades\Auth::guard('web')->logout();
 
-        // Retrieve the latest account status from the database.
-        $freshUser = $user->fresh();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
-        if (
-            ! $freshUser ||
-            ! $freshUser->isActive() ||
-            ! $freshUser->hasVerifiedEmail()
-        ) {
-            Auth::guard('web')->logout();
-
-            $request->session()->invalidate();
-            $request->session()->regenerateToken();
-
-            return redirect()
-                ->route('login')
-                ->withErrors([
-                    'email' => 'Your account is inactive or not verified. Please contact the administrator.',
-                ]);
-        }
-
-        return $next($request);
+        return redirect()
+            ->route('login')
+            ->withErrors([
+                'email' => 'Your account is inactive or not verified. Please contact the administrator.',
+            ]);
     }
+
+    return $next($request);
+}
 }

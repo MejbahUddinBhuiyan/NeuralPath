@@ -24,7 +24,9 @@
             line-height: 1.6;
         }
 
-        .np h1, .np h2, .np h3 {
+        .np h1,
+        .np h2,
+        .np h3 {
             color: #ffffff !important;
         }
 
@@ -49,8 +51,8 @@
 
         .brand {
             color: #67e8f9 !important;
-            font-weight: 800;
             font-size: 16px;
+            font-weight: 800;
         }
 
         .back {
@@ -58,11 +60,11 @@
             align-items: center;
             padding: 11px 18px;
             background: #172239;
-            color: #ffffff !important;
             border: 1px solid #475569;
             border-radius: 10px;
-            font-weight: 700;
+            color: #ffffff !important;
             font-size: 13px;
+            font-weight: 700;
             transition: .2s;
         }
 
@@ -97,20 +99,105 @@
             display: flex;
             flex-wrap: wrap;
             gap: 12px;
-            margin: 25px 0 40px;
+            margin: 25px 0 20px;
         }
 
         .summary-item {
             display: inline-flex;
             align-items: center;
             padding: 9px 14px;
+            background: #1c2b43;
             border: 1px solid #334763;
             border-radius: 9px;
-            background: #1c2b43;
             color: #ffffff !important;
             font-size: 12px;
             font-weight: 700;
         }
+
+        /* Phase and module progress */
+
+        .progress-panel {
+            margin: 25px 0 38px;
+            padding: 22px;
+            background: #131e33;
+            border: 1px solid #30415b;
+            border-radius: 14px;
+        }
+
+        .progress-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .progress-title {
+            margin: 0;
+            color: #ffffff !important;
+            font-size: 15px;
+            font-weight: 800;
+        }
+
+        .progress-percent {
+            color: #67e8f9 !important;
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .progress-track {
+            width: 100%;
+            height: 10px;
+            overflow: hidden;
+            background: #30415b;
+            border-radius: 999px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #0891b2, #22d3ee);
+            border-radius: 999px;
+            transition: width .25s ease;
+        }
+
+        .progress-details {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+            color: #cbd5e1 !important;
+            font-size: 12px;
+        }
+
+        .progress-complete {
+            color: #6ee7b7 !important;
+            font-weight: 750;
+        }
+
+        .module-progress {
+            margin: 18px 0 20px;
+            padding: 15px;
+            background: #1d2a40;
+            border: 1px solid #334763;
+            border-radius: 11px;
+        }
+
+        .module-progress .progress-title {
+            font-size: 13px;
+        }
+
+        .module-progress .progress-percent {
+            font-size: 16px;
+        }
+
+        .module-progress .progress-track {
+            height: 7px;
+        }
+
+        /* Learning modules */
 
         .section-title {
             margin: 0 0 20px;
@@ -149,6 +236,8 @@
             line-height: 1.8;
         }
 
+        /* Learning topics */
+
         .topics {
             display: grid;
             gap: 12px;
@@ -163,81 +252,59 @@
             background: #1d2a40;
             border: 1px solid #334763;
             border-radius: 12px;
+            transition: border-color .2s;
         }
 
+        .topic.is-completed {
+            border-color: #155e75;
+        }
 
-.topic-completion-form {
-    flex-shrink: 0;
-    margin: 0;
-    padding: 0;
-}
+        .topic-completion-form {
+            flex-shrink: 0;
+            margin: 0;
+            padding: 0;
+        }
 
-.topic-indicator {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 25px;
-    height: 25px;
-    margin: 0;
-    padding: 0;
-    background: #131e33;
-    border: 2px solid #64748b;
-    border-radius: 7px;
-    color: transparent;
-    font-size: 15px;
-    font-weight: 900;
-    cursor: pointer;
-    transition: all .2s ease;
-}
+        .topic-indicator {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 25px;
+            height: 25px;
+            margin: 0;
+            padding: 0;
+            background: #131e33;
+            border: 2px solid #64748b;
+            border-radius: 7px;
+            color: transparent;
+            font-size: 15px;
+            font-weight: 900;
+            cursor: pointer;
+            transition: background .2s,
+                        border-color .2s,
+                        transform .2s;
+        }
 
-.topic-indicator:hover {
-    border-color: #22d3ee;
-    background: #15384b;
-    transform: scale(1.08);
-}
+        .topic-indicator:hover {
+            border-color: #22d3ee;
+            background: #15384b;
+            transform: scale(1.08);
+        }
 
-.topic-indicator.completed {
-    background: #0891b2;
-    border-color: #22d3ee;
-    color: #ffffff;
-}
+        .topic-indicator.completed {
+            background: #0891b2;
+            border-color: #22d3ee;
+            color: #ffffff;
+        }
 
-.topic-indicator.completed:hover {
-    background: #0e7490;
-}
+        .topic-indicator.completed:hover {
+            background: #0e7490;
+        }
 
-.topic-indicator:focus-visible {
-    outline: 3px solid #67e8f9;
-    outline-offset: 3px;
-}
-
-.topic.is-completed {
-    border-color: #155e75;
-}
-
-.topic.is-completed .topic-name {
-    color: #a5f3fc !important;
-}
-
-.topic-completion-state {
-    display: inline-block;
-    margin-top: 9px;
-    color: #6ee7b7 !important;
-    font-size: 12px;
-    font-weight: 700;
-}
-
-.notice {
-    padding: 14px 18px;
-    margin-bottom: 24px;
-    background: #103a32;
-    border: 1px solid #059669;
-    border-radius: 10px;
-    color: #a7f3d0 !important;
-    font-size: 13px;
-    font-weight: 700;
-}
-
+        .topic-indicator:focus-visible {
+            outline: 3px solid #67e8f9;
+            outline-offset: 3px;
+        }
 
         .topic-body {
             flex: 1;
@@ -245,9 +312,25 @@
         }
 
         .topic-name {
+            margin: 0;
             color: #ffffff !important;
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 800;
+            line-height: 1.5;
+        }
+
+        .topic.is-completed .topic-name {
+            color: #a5f3fc !important;
+        }
+
+        .topic-completion-state {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 7px;
+            color: #6ee7b7 !important;
+            font-size: 12px;
+            font-weight: 700;
         }
 
         .topic-meta {
@@ -262,6 +345,8 @@
             font-size: 13px;
             line-height: 1.8;
         }
+
+        /* Learning resources */
 
         .resources {
             display: grid;
@@ -299,8 +384,8 @@
 
         .resource-icon {
             display: inline-flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             flex-shrink: 0;
             width: 36px;
             height: 36px;
@@ -343,6 +428,19 @@
             outline-offset: 3px;
         }
 
+        /* Notifications and empty states */
+
+        .notice {
+            padding: 14px 18px;
+            margin-bottom: 24px;
+            background: #103a32;
+            border: 1px solid #059669;
+            border-radius: 10px;
+            color: #a7f3d0 !important;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
         .empty {
             padding: 50px 24px;
             background: #131e33;
@@ -372,6 +470,14 @@
         }
 
         @media (max-width: 600px) {
+            .shell {
+                width: calc(100% - 28px);
+            }
+
+            .header {
+                margin-bottom: 30px;
+            }
+
             .section-card {
                 padding: 20px;
             }
@@ -381,6 +487,14 @@
             }
 
             .resource-link {
+                padding: 12px;
+            }
+
+            .progress-panel {
+                padding: 18px;
+            }
+
+            .module-progress {
                 padding: 12px;
             }
         }
@@ -396,23 +510,28 @@
 <body class="np">
 
 <main class="shell">
-    @if(session('status'))
-    <div class="notice" role="status">
-        {{ session('status') }}
-    </div>
-@endif
 
+    @if(session('status'))
+        <div class="notice" role="status">
+            {{ session('status') }}
+        </div>
+    @endif
+
+    <!-- Header -->
     <header class="header">
         <div class="brand">
             ◈ NeuralPath
         </div>
 
-        <a href="{{ route('learner.roadmap.index') }}"
-           class="back">
+        <a
+            href="{{ route('learner.roadmap.index') }}"
+            class="back"
+        >
             ← All Learning Phases
         </a>
     </header>
 
+    <!-- Phase overview -->
     <section aria-label="Learning phase overview">
 
         <div class="eyebrow">
@@ -438,26 +557,74 @@
             </span>
 
             <span class="summary-item">
-                {{ $branch->sections->sum(
-                    fn ($section) => $section->topics->count()
-                ) }}
-                Published Topics
+                {{ $phaseProgress['total'] }} Published Topics
             </span>
 
             <span class="summary-item">
-                Learning Phase
+                {{ $phaseProgress['completed'] }} Completed
             </span>
         </div>
 
     </section>
 
+    <!-- Overall phase progress -->
+    <section
+        class="progress-panel"
+        aria-label="Phase learning progress"
+    >
+        <div class="progress-heading">
+            <h2 class="progress-title">
+                Phase {{ $branch->phase_number }} Progress
+            </h2>
+
+            <span
+                class="progress-percent"
+                data-testid="phase-percentage"
+            >{{ $phaseProgress['percentage'] }}%</span>
+        </div>
+
+        <div
+            class="progress-track"
+            role="progressbar"
+            aria-label="Phase completion"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="{{ $phaseProgress['percentage'] }}"
+        >
+            <div
+                class="progress-fill"
+                style="width: {{ $phaseProgress['percentage'] }}%"
+            ></div>
+        </div>
+
+        <div class="progress-details">
+            <span data-testid="phase-progress-count">
+                {{ $phaseProgress['completed'] }}
+                of
+                {{ $phaseProgress['total'] }}
+                published topics completed
+            </span>
+
+            @if(
+                $phaseProgress['total'] > 0 &&
+                $phaseProgress['completed'] === $phaseProgress['total']
+            )
+                <span class="progress-complete">
+                    ✓ Phase Completed
+                </span>
+            @endif
+        </div>
+    </section>
+
+    <!-- Published modules -->
     <h2 class="section-title">
         Learning Modules
     </h2>
 
-    <section class="sections"
-             aria-label="Published learning modules">
-
+    <section
+        class="sections"
+        aria-label="Published learning modules"
+    >
         @forelse($branch->sections as $section)
 
             <article class="section-card">
@@ -472,61 +639,115 @@
                     </p>
                 @endif
 
+                @php
+                    $progress = $sectionProgress[$section->id];
+                @endphp
+
+                <!-- Individual module progress -->
+                <div
+                    class="module-progress"
+                    aria-label="{{ $section->title }} learning progress"
+                >
+                    <div class="progress-heading">
+                        <span class="progress-title">
+                            Module Progress
+                        </span>
+
+                        <span class="progress-percent">
+                            {{ $progress['percentage'] }}%
+                        </span>
+                    </div>
+
+                    <div
+                        class="progress-track"
+                        role="progressbar"
+                        aria-label="{{ $section->title }} completion"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                        aria-valuenow="{{ $progress['percentage'] }}"
+                    >
+                        <div
+                            class="progress-fill"
+                            style="width: {{ $progress['percentage'] }}%"
+                        ></div>
+                    </div>
+
+                    <div class="progress-details">
+                        <span>
+                            {{ $progress['completed'] }}
+                            of
+                            {{ $progress['total'] }}
+                            topics completed
+                        </span>
+
+                        @if(
+                            $progress['total'] > 0 &&
+                            $progress['completed'] === $progress['total']
+                        )
+                            <span class="progress-complete">
+                                ✓ Module Completed
+                            </span>
+                        @endif
+                    </div>
+                </div>
+
+                <!-- Published topics -->
                 <div class="topics">
 
                     @forelse($section->topics as $topic)
 
-                        
-@php
-    $isCompleted = in_array(
-        (int) $topic->id,
-        $completedTopicIds,
-        true
-    );
-@endphp
+                        @php
+                            $isCompleted = in_array(
+                                (int) $topic->id,
+                                $completedTopicIds,
+                                true
+                            );
+                        @endphp
 
-<div class="topic {{ $isCompleted ? 'is-completed' : '' }}">
+                        <div class="topic {{ $isCompleted ? 'is-completed' : '' }}">
 
-    <form
-        class="topic-completion-form"
-        method="POST"
-        action="{{ $isCompleted
-            ? route('learner.topics.incomplete', $topic)
-            : route('learner.topics.complete', $topic) }}"
-    >
-        @csrf
+                            <!-- Learner completion form -->
+                            <form
+                                class="topic-completion-form"
+                                method="POST"
+                                action="{{ $isCompleted
+                                    ? route('learner.topics.incomplete', $topic)
+                                    : route('learner.topics.complete', $topic) }}"
+                            >
+                                @csrf
+                                @method($isCompleted ? 'DELETE' : 'PUT')
 
-        @method($isCompleted ? 'DELETE' : 'PUT')
+                                <button
+                                    type="submit"
+                                    class="topic-indicator {{ $isCompleted ? 'completed' : '' }}"
+                                    aria-label="{{ $isCompleted
+                                        ? 'Mark ' . $topic->title . ' as incomplete'
+                                        : 'Mark ' . $topic->title . ' as complete' }}"
+                                    aria-pressed="{{ $isCompleted ? 'true' : 'false' }}"
+                                    title="{{ $isCompleted
+                                        ? 'Mark as incomplete'
+                                        : 'Mark as complete' }}"
+                                >
+                                    @if($isCompleted)
+                                        <span aria-hidden="true">✓</span>
+                                    @endif
+                                </button>
+                            </form>
 
-        <button
-            type="submit"
-            class="topic-indicator {{ $isCompleted ? 'completed' : '' }}"
-            aria-label="{{ $isCompleted
-                ? 'Mark ' . $topic->title . ' as incomplete'
-                : 'Mark ' . $topic->title . ' as complete' }}"
-            aria-pressed="{{ $isCompleted ? 'true' : 'false' }}"
-            title="{{ $isCompleted
-                ? 'Mark as incomplete'
-                : 'Mark as complete' }}"
-        >
-            @if($isCompleted)
-                <span aria-hidden="true">✓</span>
-            @endif
-        </button>
-    </form>
+                            <div class="topic-body">
 
-    <div class="topic-body">
+                                <!-- Topic title -->
+                                <div class="topic-name">
+                                    {{ $topic->title }}
+                                </div>
 
-                                
+                                @if($isCompleted)
+                                    <span class="topic-completion-state">
+                                        ✓ Completed
+                                    </span>
+                                @endif
 
-                                
-@if($isCompleted)
-    <span class="topic-completion-state">
-        ✓ Completed
-    </span>
-@endif
-
-
+                                <!-- Topic study details -->
                                 <div class="topic-meta">
                                     @if($topic->target_week)
                                         Week {{ $topic->target_week }}
@@ -547,6 +768,7 @@
                                     </p>
                                 @endif
 
+                                <!-- Published learning resources -->
                                 @if($topic->resources->isNotEmpty())
 
                                     <div class="resources">
@@ -563,7 +785,6 @@
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                             >
-
                                                 <span
                                                     class="resource-icon"
                                                     aria-hidden="true"
@@ -572,7 +793,6 @@
                                                 </span>
 
                                                 <span class="resource-info">
-
                                                     <span class="resource-title">
                                                         {{ $resource->title }}
                                                     </span>
@@ -580,14 +800,14 @@
                                                     <span class="resource-type">
                                                         {{ $resource->type }}
                                                     </span>
-
                                                 </span>
 
-                                                <span class="resource-arrow"
-                                                      aria-hidden="true">
+                                                <span
+                                                    class="resource-arrow"
+                                                    aria-hidden="true"
+                                                >
                                                     ↗
                                                 </span>
-
                                             </a>
 
                                         @endforeach
@@ -597,7 +817,6 @@
                                 @endif
 
                             </div>
-
                         </div>
 
                     @empty
@@ -615,9 +834,7 @@
         @empty
 
             <div class="empty">
-                <h3>
-                    Learning modules are coming soon
-                </h3>
+                <h3>Learning modules are coming soon</h3>
 
                 <p>
                     This learning phase has been published,
@@ -627,7 +844,6 @@
             </div>
 
         @endforelse
-
     </section>
 
     <footer class="footer">

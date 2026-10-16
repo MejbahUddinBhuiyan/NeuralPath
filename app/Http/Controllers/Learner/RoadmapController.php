@@ -52,27 +52,69 @@ class RoadmapController extends Controller
             },
         ]);
 
-        // Only published topics visible on this page.
+        // Only visible, published topics count toward progress.
         $visibleTopicIds = $branch->sections
-            ->flatMap(function ($section) {
-                return $section->topics->pluck('id');
-            })
+            ->flatMap(fn ($section) => $section->topics->pluck('id'))
+            ->map(fn ($id) => (int) $id)
             ->values()
             ->all();
 
-        // Read progress for the authenticated learner only.
+        // Load this learner's saved progress only.
         $completedTopicIds = $request->user()
             ->topicProgress()
             ->whereIn('roadmap_topic_id', $visibleTopicIds)
             ->pluck('roadmap_topic_id')
-            ->map(function ($id) {
-                return (int) $id;
-            })
+            ->map(fn ($id) => (int) $id)
             ->all();
+
+        // Efficient membership lookup for progress calculations.
+        $completedLookup = array_fill_keys(
+            $completedTopicIds,
+            true
+        );
+
+        $sectionProgress = [];
+        $totalTopics = 0;
+        $totalCompleted = 0;
+
+        foreach ($branch->sections as $section) {
+            $topicCount = $section->topics->count();
+
+            $completedCount = $section->topics
+                ->filter(
+                    fn ($topic) => isset(
+                        $completedLookup[(int) $topic->id]
+                    )
+                )
+                ->count();
+
+            $percentage = $topicCount > 0
+                ? (int) round(($completedCount / $topicCount) * 100)
+                : 0;
+
+            $sectionProgress[$section->id] = [
+                'total' => $topicCount,
+                'completed' => $completedCount,
+                'percentage' => $percentage,
+            ];
+
+            $totalTopics += $topicCount;
+            $totalCompleted += $completedCount;
+        }
+
+        $phaseProgress = [
+            'total' => $totalTopics,
+            'completed' => $totalCompleted,
+            'percentage' => $totalTopics > 0
+                ? (int) round(($totalCompleted / $totalTopics) * 100)
+                : 0,
+        ];
 
         return view('learner.roadmap.show', [
             'branch' => $branch,
             'completedTopicIds' => $completedTopicIds,
+            'sectionProgress' => $sectionProgress,
+            'phaseProgress' => $phaseProgress,
         ]);
     }
 }

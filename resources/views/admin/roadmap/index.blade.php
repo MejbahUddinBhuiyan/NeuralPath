@@ -757,6 +757,12 @@
 
         @forelse($branches as $branch)
 
+<a
+    href="{{ route('admin.projects.index', $branch) }}"
+    style="display:inline-block;margin-top:12px;padding:10px 15px;background:#172239;border:1px solid #22d3ee;border-radius:9px;color:#67e8f9;text-decoration:none;font-size:13px;font-weight:800;"
+>
+    Manage Projects →
+</a>
             <article class="np-branch">
 
                 <div>

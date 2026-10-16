@@ -35,4 +35,10 @@ class RoadmapBranch extends Model
             ->orderBy('sort_order')
             ->orderBy('id');
     }
+    public function recommendedProjects(): HasMany
+{
+    return $this->hasMany(RecommendedProject::class)
+        ->orderBy('sort_order')
+        ->orderBy('id');
+}
 }

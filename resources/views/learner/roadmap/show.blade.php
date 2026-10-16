@@ -197,6 +197,29 @@
             height: 7px;
         }
 
+<section
+    style="margin:26px 0;padding:23px;background:#131e33;border:1px solid #30415b;border-radius:14px;"
+    aria-label="Recommended phase projects"
+>
+    <h2 style="margin:0 0 8px;color:#ffffff;font-size:20px;">
+        Recommended Projects
+    </h2>
+
+    <p style="color:#cbd5e1;font-size:13px;line-height:1.8;">
+        Put your learning into practice with
+        recommended projects for this phase.
+        Projects do not affect topic completion percentages.
+    </p>
+
+    <a
+        href="{{ route('learner.projects.index', $branch) }}"
+        style="display:inline-block;padding:11px 16px;background:#0891b2;border:1px solid #22d3ee;border-radius:9px;color:#ffffff;text-decoration:none;font-size:13px;font-weight:800;"
+    >
+        Explore Recommended Projects →
+    </a>
+</section>
+
+
         /* Learning modules */
 
         .section-title {

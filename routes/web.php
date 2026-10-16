@@ -11,6 +11,8 @@ use App\Http\Controllers\Learner\TopicCompletionController;
 use App\Http\Controllers\Learner\DashboardController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\LearnerController;
+use App\Http\Controllers\Admin\RecommendedProjectController as AdminProjectController;
+use App\Http\Controllers\Learner\RecommendedProjectController as LearnerProjectController;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -217,4 +219,51 @@ Route::middleware(['auth', 'admin'])
         ->whereNumber('learner')
         ->middleware('throttle:20,1')
         ->name('status');
+    });
+
+/*
+|--------------------------------------------------------------------------
+| Recommended projects — Administration
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware(['auth', 'admin'])
+    ->prefix('admin/roadmap/{branch}/projects')
+    ->name('admin.projects.')
+    ->group(function () {
+        Route::get('/', [AdminProjectController::class, 'index'])
+            ->name('index');
+
+        Route::post('/', [AdminProjectController::class, 'store'])
+            ->name('store');
+
+        Route::put('/{project}', [AdminProjectController::class, 'update'])
+            ->name('update');
+
+        Route::patch(
+            '/{project}/publication',
+            [AdminProjectController::class, 'togglePublication']
+        )->name('publication');
+
+        Route::delete(
+            '/{project}',
+            [AdminProjectController::class, 'destroy']
+        )->name('destroy');
+    });
+
+/*
+|--------------------------------------------------------------------------
+| Recommended projects — Learner
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware(['auth', 'learner'])
+    ->prefix('roadmap/{branch}/projects')
+    ->name('learner.projects.')
+    ->group(function () {
+        Route::get('/', [LearnerProjectController::class, 'index'])
+            ->name('index');
+
+        Route::get('/{project}', [LearnerProjectController::class, 'show'])
+            ->name('show');
     });

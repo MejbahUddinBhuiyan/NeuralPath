@@ -165,15 +165,79 @@
             border-radius: 12px;
         }
 
-        .topic-indicator {
-            display: inline-block;
-            flex-shrink: 0;
-            width: 18px;
-            height: 18px;
-            margin-top: 3px;
-            border: 2px solid #94a3b8;
-            border-radius: 5px;
-        }
+
+.topic-completion-form {
+    flex-shrink: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.topic-indicator {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
+    margin: 0;
+    padding: 0;
+    background: #131e33;
+    border: 2px solid #64748b;
+    border-radius: 7px;
+    color: transparent;
+    font-size: 15px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: all .2s ease;
+}
+
+.topic-indicator:hover {
+    border-color: #22d3ee;
+    background: #15384b;
+    transform: scale(1.08);
+}
+
+.topic-indicator.completed {
+    background: #0891b2;
+    border-color: #22d3ee;
+    color: #ffffff;
+}
+
+.topic-indicator.completed:hover {
+    background: #0e7490;
+}
+
+.topic-indicator:focus-visible {
+    outline: 3px solid #67e8f9;
+    outline-offset: 3px;
+}
+
+.topic.is-completed {
+    border-color: #155e75;
+}
+
+.topic.is-completed .topic-name {
+    color: #a5f3fc !important;
+}
+
+.topic-completion-state {
+    display: inline-block;
+    margin-top: 9px;
+    color: #6ee7b7 !important;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.notice {
+    padding: 14px 18px;
+    margin-bottom: 24px;
+    background: #103a32;
+    border: 1px solid #059669;
+    border-radius: 10px;
+    color: #a7f3d0 !important;
+    font-size: 13px;
+    font-weight: 700;
+}
+
 
         .topic-body {
             flex: 1;
@@ -332,6 +396,11 @@
 <body class="np">
 
 <main class="shell">
+    @if(session('status'))
+    <div class="notice" role="status">
+        {{ session('status') }}
+    </div>
+@endif
 
     <header class="header">
         <div class="brand">
@@ -407,18 +476,56 @@
 
                     @forelse($section->topics as $topic)
 
-                        <div class="topic">
+                        
+@php
+    $isCompleted = in_array(
+        (int) $topic->id,
+        $completedTopicIds,
+        true
+    );
+@endphp
 
-                            <!-- Visual placeholder.
-                                 Private completion tracking comes next. -->
-                            <span class="topic-indicator"
-                                  aria-hidden="true"></span>
+<div class="topic {{ $isCompleted ? 'is-completed' : '' }}">
 
-                            <div class="topic-body">
+    <form
+        class="topic-completion-form"
+        method="POST"
+        action="{{ $isCompleted
+            ? route('learner.topics.incomplete', $topic)
+            : route('learner.topics.complete', $topic) }}"
+    >
+        @csrf
 
-                                <div class="topic-name">
-                                    {{ $topic->title }}
-                                </div>
+        @method($isCompleted ? 'DELETE' : 'PUT')
+
+        <button
+            type="submit"
+            class="topic-indicator {{ $isCompleted ? 'completed' : '' }}"
+            aria-label="{{ $isCompleted
+                ? 'Mark ' . $topic->title . ' as incomplete'
+                : 'Mark ' . $topic->title . ' as complete' }}"
+            aria-pressed="{{ $isCompleted ? 'true' : 'false' }}"
+            title="{{ $isCompleted
+                ? 'Mark as incomplete'
+                : 'Mark as complete' }}"
+        >
+            @if($isCompleted)
+                <span aria-hidden="true">✓</span>
+            @endif
+        </button>
+    </form>
+
+    <div class="topic-body">
+
+                                
+
+                                
+@if($isCompleted)
+    <span class="topic-completion-state">
+        ✓ Completed
+    </span>
+@endif
+
 
                                 <div class="topic-meta">
                                     @if($topic->target_week)

@@ -161,7 +161,8 @@ test('topic in unpublished phase cannot be completed', function () {
     $this->assertDatabaseCount('topic_progress', 0);
 });
 
-test('administrator cannot change learner completion', function () {
+
+test('administrator can record their own topic completion', function () {
     $admin = User::factory()->create([
         'role' => 'admin',
         'is_active' => true,
@@ -170,10 +171,21 @@ test('administrator cannot change learner completion', function () {
 
     $this->actingAs($admin)
         ->put(route('learner.topics.complete', $this->topic))
-        ->assertForbidden();
+        ->assertRedirect(
+            route('learner.roadmap.show', $this->branch)
+        );
 
-    $this->assertDatabaseCount('topic_progress', 0);
+    $this->assertDatabaseHas('topic_progress', [
+        'user_id' => $admin->id,
+        'roadmap_topic_id' => $this->topic->id,
+    ]);
+
+    $this->assertDatabaseMissing('topic_progress', [
+        'user_id' => $this->learner->id,
+        'roadmap_topic_id' => $this->topic->id,
+    ]);
 });
+
 
 test('guest cannot change topic completion', function () {
     $this->put(route('learner.topics.complete', $this->topic))

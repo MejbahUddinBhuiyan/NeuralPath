@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -73,6 +74,17 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->role === 'learner';
     }
 
+/**
+ * Both learners and administrators may use
+ * the learning interface.
+ */
+public function canUseLearnerFeatures(): bool
+{
+    return ($this->isLearner() || $this->isAdmin())
+        && $this->canAccessPlatform();
+}
+
+
     /**
      * Determine whether the account is active.
      */
@@ -89,4 +101,8 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->isActive()
             && $this->hasVerifiedEmail();
     }
+    public function topicProgress(): HasMany
+{
+    return $this->hasMany(TopicProgress::class);
+}
 }

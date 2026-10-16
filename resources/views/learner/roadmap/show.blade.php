@@ -519,6 +519,15 @@
 
     <!-- Header -->
     <header class="header">
+@if(auth()->user()->isAdmin())
+    <a
+        href="{{ route('admin.dashboard') }}"
+        class="back"
+    >
+        ← Admin View
+    </a>
+@endif
+
         <div class="brand">
             ◈ NeuralPath
         </div>

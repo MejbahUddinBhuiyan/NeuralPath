@@ -310,6 +310,15 @@
         <div class="brand">◈ NeuralPath</div>
 
         <nav class="navlinks" aria-label="Learner navigation">
+@if(auth()->user()->isAdmin())
+    <a
+        class="navlink"
+        href="{{ route('admin.dashboard') }}"
+    >
+        ← Admin View
+    </a>
+@endif
+
             <a class="navlink"
                href="{{ route('learner.dashboard') }}">
                 Dashboard

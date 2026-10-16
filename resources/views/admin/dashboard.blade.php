@@ -193,6 +193,10 @@
         </a>
 
         <nav class="nav" aria-label="Admin navigation">
+<a href="{{ route('learner.dashboard') }}">
+    Switch to Learner View →
+</a>
+
             <a href="{{ route('admin.learners.index') }}">
                 Learners
             </a>

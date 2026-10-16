@@ -16,11 +16,9 @@ class EnsureLearner
 
         if (
             ! $user ||
-            ! $user->isLearner() ||
-            ! $user->isActive() ||
-            ! $user->hasVerifiedEmail()
+            ! $user->canUseLearnerFeatures()
         ) {
-            abort(403, 'Unauthorized learner access.');
+            abort(403, 'Unauthorized learning access.');
         }
 
         return $next($request);

@@ -22,7 +22,8 @@ test('active verified learners can access dashboard', function () {
         ->assertOk();
 });
 
-test('administrators cannot access learner dashboard', function () {
+
+test('active verified administrators can access learner dashboard', function () {
     $admin = User::factory()->create([
         'role' => 'admin',
         'is_active' => true,
@@ -30,10 +31,10 @@ test('administrators cannot access learner dashboard', function () {
     ]);
 
     $this->actingAs($admin)
-        ->get('/dashboard')
-        ->assertForbidden();
+        ->get(route('learner.dashboard'))
+        ->assertOk()
+        ->assertSee('Switch to Admin View');
 });
-
 test('inactive learners cannot access dashboard', function () {
     $learner = User::factory()->create([
         'role' => 'learner',

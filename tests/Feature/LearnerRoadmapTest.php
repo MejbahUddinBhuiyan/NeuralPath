@@ -25,7 +25,8 @@ test('guest cannot access learner roadmap', function () {
         ->assertRedirect(route('login'));
 });
 
-test('administrator cannot access learner roadmap', function () {
+
+test('administrator can access learner roadmap', function () {
     $admin = User::factory()->create([
         'role' => 'admin',
         'is_active' => true,
@@ -34,8 +35,10 @@ test('administrator cannot access learner roadmap', function () {
 
     $this->actingAs($admin)
         ->get(route('learner.roadmap.index'))
-        ->assertForbidden();
+        ->assertOk()
+        ->assertSee('Admin View');
 });
+
 
 test('draft branches are hidden from learners', function () {
     $learner = createRoadmapLearner();

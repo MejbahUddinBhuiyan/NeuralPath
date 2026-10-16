@@ -407,6 +407,15 @@
         </a>
 
         <div class="header-actions">
+@if(auth()->user()->isAdmin())
+    <a
+        href="{{ route('admin.dashboard') }}"
+        class="nav-link"
+    >
+        ← Switch to Admin View
+    </a>
+@endif
+
 
             <a
                 href="{{ route('learner.roadmap.index') }}"

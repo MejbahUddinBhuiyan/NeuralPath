@@ -184,7 +184,8 @@ test('dashboard requires authentication', function () {
         ->assertRedirect(route('login'));
 });
 
-test('administrator cannot access learner dashboard', function () {
+
+test('administrator can access learner dashboard', function () {
     $admin = User::factory()->create([
         'role' => 'admin',
         'is_active' => true,
@@ -193,5 +194,6 @@ test('administrator cannot access learner dashboard', function () {
 
     $this->actingAs($admin)
         ->get(route('learner.dashboard'))
-        ->assertForbidden();
+        ->assertOk()
+        ->assertSee('Switch to Admin View');
 });
